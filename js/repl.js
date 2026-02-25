@@ -127,40 +127,27 @@ class ReplJS{
             if (REPL.DISCONNECT == false) {
                 await this.disconnect();
             }
+            // Show the connect overlay
+            if (window.showConnectOverlay) {
+                window.showConnectOverlay();
+            }
+        });
+
+        // Handle connection choice from overlay
+        window.onConnectChoice = async (choice) => {
             document.getElementById("IDConnectBTN").disabled = true;
-            const answer = await this.showConnectOptions(); // Wait for modal answer
-            if(answer){
-                await this.connectBLE(); //they pressed OK let's do BLE
-            }else {
-                await this.connectCable(); //they pressed Cancel let's do Cable
+            if (choice === 'ble') {
+                await this.connectBLE();
+            } else {
+                await this.connectCable();
             }
             document.getElementById("IDConnectBTN").disabled = false;
-        });
+        };
 
         this.DISCONNECT = true;
     }
     
-    async showConnectOptions() {
-        return new Promise((resolve, reject) => {
-            const modal = document.getElementById("connect-modal");
-            UIkit.modal(modal).show();
-
-            // Get buttons
-            const USBButton = document.getElementById("IDConnectUSB");
-            const BLEButton = document.getElementById("IDConnectBLE");
-    
-            // Add click event listeners
-            USBButton.addEventListener("click", () => {
-                UIkit.modal(modal).hide();
-                resolve(false); // Resolve promise as "false"
-            });
-    
-            BLEButton.addEventListener("click", () => {
-                UIkit.modal(modal).hide();
-                resolve(true); // Resolve promise as "true"
-            });
-        });
-    }
+    // showConnectOptions removed - now using getting-started overlay
 
     // Returns true if product and vendor ID match for MicroPython, otherwise false #
     checkPortMatching(port){

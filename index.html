@@ -67,13 +67,12 @@
 
                 <button
                     id="IDConnectBTN"
-                    title="Connect XRP to page manually, or automatically if connected before"
+                    title="Connect XRP"
                     alt="Connect XRP button"
                     class="uk-button uk-align-right uk-height-1-1 uk-text-small
                             uk-text-nowrap connect-xrp"
-                    uk-icon="shrink"
                     dir="rtl">
-                    <span id="IDConnectBTN_text">Connect XRP</span>
+                    <span id="IDConnectBTN_text">Connect</span>
                 </button>
 
                 <span
@@ -256,29 +255,50 @@
             </div>
         </div>
 
-        <!-- This is the modal for connection type -->
-        <div id="connect-modal" uk-modal="esc-close:false; bg-close:false">
-            <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title"></h2>
-                <div>
-                    <button 
-                        id="IDConnectBLE"
-                        class="uk-button uk-button-default uk-button-large
-                                uk-text-nowrap">
-                        <img height="10%" width="10%" src="images/Bluetooth_FM_Black.png"/></img>
-                        <span id="IDConnectBTN_text">Connect via Bluetooth</span>
+        <!-- Getting Started / Connect Overlay -->
+        <div id="getting-started-overlay" class="getting-started-overlay hidden">
+            <div class="getting-started-content">
+                <button id="getting-started-close" class="getting-started-close" uk-icon="icon: close; ratio: 1.2"></button>
+                <div class="getting-started-logo">
+                    <img src="images/jahn-robotics-logo.png" alt="Jahn Robotics">
+                </div>
+                <h1>Welcome to XRP Code!</h1>
+                <p class="getting-started-intro">Get ready to program your XRP robot.</p>
+
+                <div class="getting-started-steps">
+                    <div class="getting-started-step">
+                        <span class="step-icon" uk-icon="icon: cog; ratio: 1.5"></span>
+                        <div class="step-content">
+                            <h3>1. Build Your Robot</h3>
+                            <p>If you haven't assembled your XRP yet, follow our step-by-step guide.</p>
+                            <a href="building-guide.html" class="step-link">View Building Guide</a>
+                        </div>
+                    </div>
+                    <div class="getting-started-step">
+                        <span class="step-icon" uk-icon="icon: link; ratio: 1.5"></span>
+                        <div class="step-content">
+                            <h3>2. Connect Your Robot</h3>
+                            <p>Turn on your XRP and connect it via Bluetooth or USB.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="getting-started-connect-buttons">
+                    <button id="getting-started-connect-ble" class="getting-started-connect-btn connect-ble">
+                        <img src="images/Bluetooth_FM_Black.png" alt="Bluetooth" class="connect-btn-icon">
+                        Connect via Bluetooth
                     </button>
-                    <button 
-                        id="IDConnectUSB"
-                        class="uk-button uk-button-default uk-button-large
-                                uk-text-nowrap">
-                        <img height="10%" width="10%" src="images/USB_icon.svg.png"/></img>
-                        <span id="IDConnectBTN_text">Connect via USB</span>
+                    <button id="getting-started-connect-usb" class="getting-started-connect-btn connect-usb">
+                        <img src="images/USB_icon.svg.png" alt="USB" class="connect-btn-icon">
+                        Connect via USB
                     </button>
                 </div>
+
+                <p class="getting-started-skip">or <a href="#" id="getting-started-skip-link">skip for now</a></p>
             </div>
         </div>
 
+        
         <div id="view-python-code" uk-modal>
           <div class="uk-modal-dialog uk-modal-body python-code">
               <button id="view-python-button" title="Close dialog" class="uk-modal-close-default" type="button" uk-close></button>

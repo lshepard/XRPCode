@@ -74,16 +74,68 @@ window.bleList = ["__init__.py","blerepl.py", "ble_uart_peripheral.py", "isrunni
 
 window.SHOWMAIN = false;
 
-// Changelog popup removed - previously shown when version changed
-// if(localStorage.getItem("version") == null || localStorage.getItem("version") != showChangelogVersion ){
-//     console.log("Updates to IDE! Showing changelog...");
-//     fetch("CHANGELOG.txt?version=" + showChangelogVersion).then(async (response) => {
-//         await response.text().then(async (text) => {
-//             await dialogMessage(marked.parse(text));
-//         });
-//     });
-//     localStorage.setItem("version", showChangelogVersion);
-// }
+// Getting Started / Connect Overlay
+(function() {
+    const overlay = document.getElementById('getting-started-overlay');
+    const closeBtn = document.getElementById('getting-started-close');
+    const connectBleBtn = document.getElementById('getting-started-connect-ble');
+    const connectUsbBtn = document.getElementById('getting-started-connect-usb');
+    const skipLink = document.getElementById('getting-started-skip-link');
+
+    // Show overlay on first visit
+    if (localStorage.getItem('xrp-getting-started-seen') !== 'true') {
+        overlay.classList.remove('hidden');
+        overlay.style.display = 'flex';
+    }
+
+    function showOverlay() {
+        overlay.style.display = 'flex';
+        // Small delay to allow display:flex to take effect before removing hidden
+        requestAnimationFrame(() => {
+            overlay.classList.remove('hidden');
+        });
+    }
+
+    function hideOverlay() {
+        overlay.classList.add('hidden');
+        localStorage.setItem('xrp-getting-started-seen', 'true');
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 300);
+    }
+
+    // Close button
+    closeBtn.addEventListener('click', hideOverlay);
+
+    // Skip link
+    skipLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        hideOverlay();
+    });
+
+    // Export functions for use by repl.js
+    window.showConnectOverlay = showOverlay;
+    window.hideConnectOverlay = hideOverlay;
+
+    // Connection choice callback - will be set by repl.js
+    window.onConnectChoice = null;
+
+    // Bluetooth button
+    connectBleBtn.addEventListener('click', () => {
+        hideOverlay();
+        if (window.onConnectChoice) {
+            window.onConnectChoice('ble');
+        }
+    });
+
+    // USB button
+    connectUsbBtn.addEventListener('click', () => {
+        hideOverlay();
+        if (window.onConnectChoice) {
+            window.onConnectChoice('usb');
+        }
+    });
+})();
 
 // Want the dropdown to disappear if mouse leaves it (doesn't disappear if mouse leaves button that starts it though)
 //document.getElementById("IDUtilitesDropdown").addEventListener("mouseleave", () => {
@@ -644,7 +696,7 @@ function registerShell(_container, state){
 
     REPL.onData = (data) => ATERM.write(data);
     REPL.onDisconnect = () => {
-        ATERM.writeln("Waiting for connection... (click 'Connect XRP')");
+        ATERM.writeln("Waiting for connection... (click 'Connect')");
         FS.clearToWaiting();
         window.disableMenuItems();
 
@@ -653,9 +705,9 @@ function registerShell(_container, state){
         const connect = document.getElementById('IDConnectBTN');
         connect.style.display = "block";
         if(REPL.BLE_DEVICE == undefined){
-            document.getElementById('IDConnectBTN_text').innerText = "Connect XRP";
+            document.getElementById('IDConnectBTN_text').innerText = "Connect";
         }else{
-            document.getElementById('IDConnectBTN_text').innerText = "Re-Connect XRP";
+            document.getElementById('IDConnectBTN_text').innerText = "Re-Connect";
             connect.disabled = true;
         }
 
@@ -669,7 +721,12 @@ function registerShell(_container, state){
         document.getElementById("IDRunBTN").disabled = false;
         document.getElementById('IDRunBTN').style.display = "block";
         document.getElementById('IDConnectBTN').style.display = "none";
-       
+
+        // Hide the connect overlay when connected
+        if (window.hideConnectOverlay) {
+            window.hideConnectOverlay();
+        }
+
         //FS.enableButtons();
     }
 

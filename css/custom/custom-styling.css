@@ -208,3 +208,194 @@
   height: 15px;
   fill: white;
 }
+
+/* Getting Started Overlay */
+.getting-started-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 22, 40, 0.95);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.getting-started-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.getting-started-content {
+  background-color: #122240;
+  border-radius: 16px;
+  padding: 40px 48px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.getting-started-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.2s ease;
+}
+
+.getting-started-close:hover {
+  color: #ffffff;
+}
+
+.getting-started-logo {
+  margin-bottom: 24px;
+}
+
+.getting-started-logo img {
+  height: 80px;
+  width: auto;
+  background-color: #f0f0f0;
+  border-radius: 16px;
+  padding: 8px;
+}
+
+.getting-started-content h1 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.getting-started-intro {
+  color: #94A3B8;
+  font-size: 1rem;
+  margin: 0 0 32px 0;
+}
+
+.getting-started-steps {
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.getting-started-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background-color: rgba(0, 180, 228, 0.08);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.getting-started-step:last-child {
+  margin-bottom: 0;
+}
+
+.step-icon {
+  color: #00B4E4;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-content h3 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.step-content p {
+  color: #94A3B8;
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.step-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #00B4E4;
+  font-size: 0.875rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.step-link:hover {
+  text-decoration: underline;
+}
+
+.getting-started-connect-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.getting-started-connect-btn {
+  width: 100%;
+  padding: 16px 24px;
+  background-color: #00B4E4;
+  color: #0A1628;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.getting-started-connect-btn:hover {
+  transform: translateY(-2px);
+}
+
+.getting-started-connect-btn.connect-ble {
+  background-color: #00B4E4;
+}
+
+.getting-started-connect-btn.connect-ble:hover {
+  background-color: #0094BD;
+}
+
+.getting-started-connect-btn.connect-usb {
+  background-color: #00D68F;
+}
+
+.getting-started-connect-btn.connect-usb:hover {
+  background-color: #00b577;
+}
+
+.connect-btn-icon {
+  height: 24px;
+  width: auto;
+}
+
+.getting-started-skip {
+  margin-top: 16px;
+  color: #94A3B8;
+  font-size: 0.875rem;
+}
+
+.getting-started-skip a {
+  color: #94A3B8;
+  text-decoration: underline;
+}
+
+.getting-started-skip a:hover {
+  color: #ffffff;
+}
