@@ -74,19 +74,16 @@ window.bleList = ["__init__.py","blerepl.py", "ble_uart_peripheral.py", "isrunni
 
 window.SHOWMAIN = false;
 
-if(localStorage.getItem("version") == null || localStorage.getItem("version") != showChangelogVersion ){
-
-    console.log("Updates to IDE! Showing changelog...");    // Show message in console
-
-    fetch("CHANGELOG.txt?version=" + showChangelogVersion).then(async (response) => {
-        await response.text().then(async (text) => {
-            await dialogMessage(marked.parse(text));
-        });
-    });
-
-    localStorage.setItem("version", showChangelogVersion);       // Set this show not shown on next page load
-   // }
-}
+// Changelog popup removed - previously shown when version changed
+// if(localStorage.getItem("version") == null || localStorage.getItem("version") != showChangelogVersion ){
+//     console.log("Updates to IDE! Showing changelog...");
+//     fetch("CHANGELOG.txt?version=" + showChangelogVersion).then(async (response) => {
+//         await response.text().then(async (text) => {
+//             await dialogMessage(marked.parse(text));
+//         });
+//     });
+//     localStorage.setItem("version", showChangelogVersion);
+// }
 
 // Want the dropdown to disappear if mouse leaves it (doesn't disappear if mouse leaves button that starts it though)
 //document.getElementById("IDUtilitesDropdown").addEventListener("mouseleave", () => {
