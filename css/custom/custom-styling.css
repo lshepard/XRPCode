@@ -1,5 +1,5 @@
 .header {
-  background-color: #2980b9;
+  background-color: #0A1628;
   /* min-height: 67px; */
   /* min-width: 100%; */
   min-height: 55px;
@@ -12,7 +12,7 @@
   padding-top: 3px;
 }
 .header_logo_space {
-  background-color: #2980b9;
+  background-color: #0A1628;
   height: 50%;
   display: inline-block;
   flex: none;
@@ -21,14 +21,14 @@
   object-fit: fill;
 }
 .header_button_space {
-  background-color: #2980b9;
+  background-color: #0A1628;
   color: white;
   width: 100%;
   height: 100%;
 }
 .header_link_space {
   margin-right:0%;
-  background-color: #2980b9;
+  background-color: #0A1628;
   color: white;
 }
 .editor_header_toolbar {
@@ -40,10 +40,47 @@
 .bg-transparent {
   background-color: transparent;
 }
+.jahn-logo-link {
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  text-decoration: none;
+  margin-right: 40px;
+}
+.jahn-logo-link:hover {
+  text-decoration: none;
+}
+.jahn_logo {
+  height: 40px;
+  width: auto;
+  margin-right: 12px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 4px;
+}
+.jahn-logo-text {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+.jahn-logo-link:hover .jahn-logo-text {
+  color: #00B4E4;
+}
+.jahn-logo-link:hover .jahn_logo {
+  opacity: 0.9;
+}
+.header-logos-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
 .xrp_logo {
   height: 50px;
-  width: 100%;
-  padding-right: 12%;
+  width: auto;
+  margin-right: 16px;
+  flex-shrink: 0;
 }
 .micropython-icon {
   width: 12vw;
