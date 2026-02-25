@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>XRP Robot Building Guide - Jahn Robotics</title>
+
+        <link rel="stylesheet" href="uikit-3.16.22/css/uikit.css?version=1.2.2" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="css/custom/custom-styling.css">
+        <link rel="stylesheet" href="css/custom/building-guide.css">
+    </head>
+
+    <body>
+        <div class="page_wrapper">
+            <header class="header uk-text-center uk-width-1-1">
+                <div class="header_button_space uk-height-1-1">
+                    <div class="header-logos-nav uk-height-1-1 uk-text-left uk-margin-medium-left">
+                        <a href="https://jahnrobotics.org" target="_blank" title="Jahn Robotics" class="jahn-logo-link">
+                            <img class="jahn_logo" src="images/jahn-robotics-logo.png" alt="Jahn Robotics Logo">
+                            <span class="jahn-logo-text">Jahn Robotics</span>
+                        </a>
+                        <nav class="guide-nav">
+                            <a href="index.html" class="nav-link">Code Editor</a>
+                            <a href="building-guide.html" class="nav-link active">Building Guide</a>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <main class="guide-content">
+                <div class="guide-container">
+                    <h1>XRP Robot Assembly Guide</h1>
+                    <p class="intro">Follow this step-by-step guide to assemble your XRP robot. The entire process takes about 15 minutes.</p>
+
+                    <div class="video-section">
+                        <h2>Assembly Video</h2>
+                        <p>Watch the complete assembly video, or follow the written instructions below with timestamps to jump to specific sections.</p>
+                        <div class="video-wrapper">
+                            <iframe
+                                src="https://www.youtube.com/embed/vpV9_qn0hYs"
+                                title="XRP Version 1 Assembly Video"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div class="parts-section">
+                        <h2>What's in the Kit</h2>
+                        <p>Before you begin, make sure you have all the parts from your XRP kit:</p>
+
+                        <div class="parts-grid">
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/chassis.jpeg" alt="Robot Chassis">
+                                <h3>Robot Chassis</h3>
+                                <p>Single-piece design with a rail system on top for easy component attachment.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/robot_controller.jpeg" alt="Robot Controller">
+                                <h3>Robot Controller</h3>
+                                <p>The brain of your robot with an RP2350 microprocessor. Reads sensors, runs programs, and drives motors.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/motors_and_cables.jpeg" alt="Motors">
+                                <h3>Motors with Encoders</h3>
+                                <p>Two motors that drive the robot, with built-in sensors to measure wheel rotation.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/battery_case.jpeg" alt="Battery Case">
+                                <h3>Battery Case</h3>
+                                <p>Holds 4 AA batteries. Rechargeable batteries are recommended.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/ultrasonic.jpeg" alt="Ultrasonic Rangefinder">
+                                <h3>Ultrasonic Rangefinder</h3>
+                                <p>Measures distance to objects in front of the robot using sound waves.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/reflectance_sensor.jpeg" alt="Reflectance Sensor">
+                                <h3>Reflectance Sensor</h3>
+                                <p>Detects light and dark surfaces for line following.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/servo.jpeg" alt="Servo Motor">
+                                <h3>Servo Motor</h3>
+                                <p>Moves to preset angles for the robotic arm.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/servo_arm.jpeg" alt="Servo Arm">
+                                <h3>Servo Arm</h3>
+                                <p>Attaches to the servo for grabbing or pushing objects.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/tires.jpeg" alt="Wheels and Tires">
+                                <h3>Wheels & Tires</h3>
+                                <p>Two wheels with o-ring tires for traction.</p>
+                            </div>
+                            <div class="part-card">
+                                <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/casters.jpeg" alt="Casters">
+                                <h3>Casters</h3>
+                                <p>Two ball casters for the front of the robot.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="steps-section">
+                        <h2>Assembly Steps</h2>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">1</span>
+                                <h3>Insert the Robot Controller</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=78s" target="_blank" class="timestamp">Video: 1:18</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/inserting_controller_1.jpeg" alt="Inserting controller step 1">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/inserting_controller_2.jpeg" alt="Inserting controller step 2">
+                                </div>
+                                <div class="step-text">
+                                    <p>Position the controller board with the battery connector facing toward the back of the robot. Remove any tape from the board connectors first.</p>
+                                    <p>Snap the corners of the board into the pockets on the chassis. Make sure it's seated firmly.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">2</span>
+                                <h3>Install the Battery Pack</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=99s" target="_blank" class="timestamp">Video: 1:39</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/battery_pack_cable.jpeg" alt="Battery pack cable">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/battery_pack_inserted.jpeg" alt="Battery pack inserted">
+                                </div>
+                                <div class="step-text">
+                                    <p>Thread the battery cable through the cutout in the chassis.</p>
+                                    <p>Push the battery pack against the chassis fingers until it clicks into place.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">3</span>
+                                <h3>Add the Battery Cover</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=149s" target="_blank" class="timestamp">Video: 2:29</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/battery_cover_pegs.jpeg" alt="Battery cover pegs">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/battery_cover_all.jpg" alt="Battery cover installed">
+                                </div>
+                                <div class="step-text">
+                                    <p>Align the tabs on the battery cover with the slots on the chassis.</p>
+                                    <p>Snap the cover into place.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">4</span>
+                                <h3>Insert the Casters</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=186s" target="_blank" class="timestamp">Video: 3:06</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/installing_casters.jpg" alt="Installing casters">
+                                </div>
+                                <div class="step-text">
+                                    <p>Press the white ball casters into the holes at the front of the chassis.</p>
+                                    <p>They should snap in securely.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">5</span>
+                                <h3>Mount the Wheels</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=202s" target="_blank" class="timestamp">Video: 3:22</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/wheel_and_motor.jpeg" alt="Wheel and motor">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/wheel_mounted.jpeg" alt="Wheel mounted">
+                                </div>
+                                <div class="step-text">
+                                    <p>Press the wheels onto the motor shafts.</p>
+                                    <p>Align the flat side of the wheel hub with the flat side of the motor shaft.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">6</span>
+                                <h3>Add the Tires</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=225s" target="_blank" class="timestamp">Video: 3:45</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/tires_on_wheels.jpeg" alt="Tires on wheels">
+                                </div>
+                                <div class="step-text">
+                                    <p>Stretch the o-ring tires into the grooves on each wheel.</p>
+                                    <p>These provide traction for your robot.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">7</span>
+                                <h3>Connect Motor Cables</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=232s" target="_blank" class="timestamp">Video: 3:52</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/cables_on_motors.jpeg" alt="Cables on motors">
+                                </div>
+                                <div class="step-text">
+                                    <p>Insert the cable connectors into each motor.</p>
+                                    <p>Make sure they click in securely.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">8</span>
+                                <h3>Install the Motors</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=249s" target="_blank" class="timestamp">Video: 4:09</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/motor_half_installed.jpg" alt="Motor half installed">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/motor_fully_installed.jpg" alt="Motor fully installed">
+                                </div>
+                                <div class="step-text">
+                                    <p>Snap the motors into the chassis from the bottom.</p>
+                                    <p>The motors should click firmly into place.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">9</span>
+                                <h3>Connect Motors to Controller</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=283s" target="_blank" class="timestamp">Video: 4:43</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/RobotController.jpg" alt="Robot controller ports">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/left_motor_cable.jpeg" alt="Left motor cable">
+                                </div>
+                                <div class="step-text">
+                                    <p>Connect the left motor cable to the "Motor L" connector on the controller.</p>
+                                    <p>Connect the right motor cable to the "Motor R" connector.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">10</span>
+                                <h3>Wire the Sensors</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=311s" target="_blank" class="timestamp">Video: 5:11</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/reflectance_wiring.jpeg" alt="Reflectance wiring">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/reflectance_with_wires.jpeg" alt="Reflectance with wires">
+                                </div>
+                                <div class="step-text">
+                                    <p><strong>Important:</strong> Sensor cable wiring is the most common cause of problems. Be careful here!</p>
+                                    <p>Attach the cables to both the reflectance sensor and the rangefinder. When removing connectors, always pull on the plastic shell, not the wires.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">11</span>
+                                <h3>Mount Sensor Brackets</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=344s" target="_blank" class="timestamp">Video: 5:44</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/rangefinder_bracket_on_chassis.jpg" alt="Rangefinder bracket">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/reflectance_sensor_on_chassis.jpg" alt="Reflectance sensor on chassis">
+                                </div>
+                                <div class="step-text">
+                                    <p>Attach the sensor brackets to the front of the chassis.</p>
+                                    <p>The reflectance sensor faces down toward the ground. The rangefinder faces forward.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">12</span>
+                                <h3>Connect Sensors to Controller</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=415s" target="_blank" class="timestamp">Video: 6:55</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/line_connector.jpeg" alt="Line connector">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/range_connector.jpeg" alt="Range connector">
+                                </div>
+                                <div class="step-text">
+                                    <p>Connect the reflectance sensor cable to the "Line" connector on the controller.</p>
+                                    <p>Connect the rangefinder cable to the "Range" connector.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">13</span>
+                                <h3>Attach Servo Bracket</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=449s" target="_blank" class="timestamp">Video: 7:29</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/ball_end_of_servo.jpg" alt="Ball end of servo bracket">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/top_servo_bracket.jpg" alt="Servo bracket top">
+                                </div>
+                                <div class="step-text">
+                                    <p>Insert the ball end of the servo bracket into the upper slot on the chassis.</p>
+                                    <p>Snap the bottom onto the rail system.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">14</span>
+                                <h3>Mount the Servo</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=474s" target="_blank" class="timestamp">Video: 7:54</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/servo_on_bracket.jpg" alt="Servo on bracket">
+                                </div>
+                                <div class="step-text">
+                                    <p>Snap the servo motor into the bracket.</p>
+                                    <p>It should fit snugly.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">15</span>
+                                <h3>Connect Servo Cable</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=486s" target="_blank" class="timestamp">Video: 8:06</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/servo_cable_installed.jpg" alt="Servo cable installed">
+                                </div>
+                                <div class="step-text">
+                                    <p>Connect the servo cable to the "Servo 1" connector on the controller.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">16</span>
+                                <h3>Install Servo Arm</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=507s" target="_blank" class="timestamp">Video: 8:27</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/servo_horn_install.jpeg" alt="Servo horn install">
+                                </div>
+                                <div class="step-text">
+                                    <p>Press the servo horn into the slot on the arm.</p>
+                                    <p>Make sure the orientation is correct.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-header">
+                                <span class="step-number">17</span>
+                                <h3>Mount Arm to Servo</h3>
+                                <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=525s" target="_blank" class="timestamp">Video: 8:45</a>
+                            </div>
+                            <div class="step-content">
+                                <div class="step-images">
+                                    <img src="https://raw.githubusercontent.com/Open-STEM/XRPUsersGuide/main/course/assembly/mounted_servo_arm.png" alt="Mounted servo arm">
+                                </div>
+                                <div class="step-text">
+                                    <p>Press the arm onto the servo shaft.</p>
+                                    <p>The arm should have about 180 degrees of motion range.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testing-section">
+                        <h2>Testing Your Robot</h2>
+                        <p>Once assembly is complete, run the built-in verification test to confirm all sensors and motors are working properly.</p>
+                        <a href="https://www.youtube.com/watch?v=vpV9_qn0hYs&t=764s" target="_blank" class="test-link">
+                            Watch the verification test (12:44 in the video)
+                        </a>
+                        <div class="next-steps">
+                            <h3>Ready to Code!</h3>
+                            <p>Your robot is now assembled. Head to the <a href="index.html">Code Editor</a> to start programming your XRP!</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="guide-footer">
+                <p>Assembly guide based on the <a href="https://xrpusersguide.readthedocs.io/" target="_blank">XRP Users Guide</a> by Open-STEM.</p>
+                <p>&copy; 2024 <a href="https://jahnrobotics.org" target="_blank">Jahn Robotics</a></p>
+            </footer>
+        </div>
+
+        <script src="uikit-3.16.22/js/uikit.js"></script>
+        <script src="uikit-3.16.22/js/uikit-icons.js"></script>
+    </body>
+</html>
