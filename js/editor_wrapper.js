@@ -423,8 +423,8 @@ class EditorWrapper{
 
         // Get live autocomplete state, affects all editors
         this.AUTOCOMPLETE_STATE = localStorage.getItem("EditorAutocompleteState");
-        if(this.AUTOCOMPLETE_STATE == undefined){ 
-            this.AUTOCOMPLETE_STATE = false;  //if no state then off by default.
+        if(this.AUTOCOMPLETE_STATE == undefined || this.AUTOCOMPLETE_STATE === null){
+            this.AUTOCOMPLETE_STATE = true;  //if no state then ON by default.
         }
         this.setAutocompleteButtonText();
 
