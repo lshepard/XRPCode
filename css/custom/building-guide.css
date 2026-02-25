@@ -290,6 +290,32 @@ h3 {
   margin-top: 48px;
 }
 
+.controller-reference {
+  background-color: #122240;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.controller-reference h3 {
+  font-size: 1.125rem;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+}
+
+.controller-reference p {
+  font-size: 0.875rem;
+  color: #94A3B8;
+  margin: 0 0 16px 0;
+}
+
+.controller-reference img {
+  max-width: 100%;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
 .step-simple {
   display: flex;
   align-items: flex-start;
