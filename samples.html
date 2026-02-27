@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XRP Code Samples - Jahn Robotics</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        h1 {
+            color: #00d4ff;
+            border-bottom: 2px solid #00d4ff;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #ff6b6b;
+            margin-top: 40px;
+        }
+        .sample {
+            background: #16213e;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #0f3460;
+        }
+        .sample h3 {
+            color: #00d4ff;
+            margin-top: 0;
+        }
+        .description {
+            color: #aaa;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        pre {
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-x: auto;
+            border: 1px solid #30363d;
+            position: relative;
+        }
+        code {
+            font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #c9d1d9;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #00d4ff;
+            color: #1a1a2e;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            background: #00a8cc;
+        }
+        .copy-btn.copied {
+            background: #4ade80;
+        }
+        .comment { color: #8b949e; }
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .function { color: #d2a8ff; }
+        .number { color: #79c0ff; }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .header img {
+            height: 50px;
+        }
+        .back-link {
+            color: #00d4ff;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .tip {
+            background: #1e3a5f;
+            border-left: 4px solid #00d4ff;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .tip strong {
+            color: #00d4ff;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back to XRPCode Editor</a>
+    
+    <div class="header">
+        <h1>🤖 XRP Code Samples</h1>
+    </div>
+    
+    <p class="description">
+        Copy and paste these code samples into the XRPCode editor to get started quickly.
+        Make sure your XRP robot is connected before running!
+    </p>
+
+    <h2>🚗 Sample 1: Drive Straight and Back</h2>
+    
+    <div class="sample">
+        <h3>drive_straight_back.py</h3>
+        <p class="description">
+            This program makes the robot drive forward 20 cm, pause, then drive backward 20 cm to return to the starting position.
+        </p>
+        
+        <div class="tip">
+            <strong>💡 Tip:</strong> Change the distance value (20) to make the robot drive further or shorter!
+        </div>
+        
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="comment"># Drive Straight and Back</span>
+<span class="comment"># Robot drives forward, pauses, then returns</span>
+
+<span class="keyword">from</span> XRPLib.defaults <span class="keyword">import</span> *
+<span class="keyword">import</span> time
+
+<span class="comment"># Distance to travel (in centimeters)</span>
+distance = <span class="number">20</span>
+
+<span class="comment"># Speed (0.0 to 1.0, where 1.0 is full speed)</span>
+speed = <span class="number">0.5</span>
+
+<span class="comment"># Drive forward</span>
+<span class="function">print</span>(<span class="string">"Driving forward..."</span>)
+drivetrain.<span class="function">straight</span>(distance, max_effort=speed)
+
+<span class="comment"># Pause for 1 second</span>
+<span class="function">print</span>(<span class="string">"Pausing..."</span>)
+time.<span class="function">sleep</span>(<span class="number">1</span>)
+
+<span class="comment"># Drive backward (negative distance)</span>
+<span class="function">print</span>(<span class="string">"Driving backward..."</span>)
+drivetrain.<span class="function">straight</span>(-distance, max_effort=speed)
+
+<span class="comment"># Done!</span>
+<span class="function">print</span>(<span class="string">"Back to start!"</span>)
+</code></pre>
+    </div>
+
+    <h2>🎮 Sample 2: Arcade Joystick Control</h2>
+    
+    <div class="sample">
+        <h3>arcade_gamepad.py</h3>
+        <p class="description">
+            Control your robot using a Bluetooth gamepad! The left joystick controls forward/backward movement,
+            and left/right turning. Press the B button to stop the program.
+        </p>
+        
+        <div class="tip">
+            <strong>💡 Tip:</strong> Make sure to pair your Bluetooth controller with the XRP before running. 
+            The left stick Y-axis controls speed, and X-axis controls turning.
+        </div>
+        
+        <pre><button class="copy-btn" onclick="copyCode(this)">Copy</button><code><span class="comment"># Arcade Joystick Gamepad Control</span>
+<span class="comment"># Control your robot with a Bluetooth gamepad</span>
+
+<span class="keyword">from</span> XRPLib.defaults <span class="keyword">import</span> *
+<span class="keyword">from</span> XRPLib.gamepad <span class="keyword">import</span> Gamepad
+<span class="keyword">import</span> time
+
+<span class="comment"># Get the gamepad</span>
+gamepad = Gamepad.<span class="function">get_default_gamepad</span>()
+
+<span class="function">print</span>(<span class="string">"Gamepad connected!"</span>)
+<span class="function">print</span>(<span class="string">"Use left joystick to drive"</span>)
+<span class="function">print</span>(<span class="string">"Press B button to stop"</span>)
+
+<span class="comment"># Main control loop</span>
+<span class="keyword">while</span> <span class="keyword">True</span>:
+    
+    <span class="comment"># Check if B button is pressed to exit</span>
+    <span class="keyword">if</span> gamepad.<span class="function">is_button_pressed</span>(Gamepad.BUTTON_B):
+        <span class="function">print</span>(<span class="string">"Stopping..."</span>)
+        <span class="keyword">break</span>
+    
+    <span class="comment"># Get joystick values</span>
+    <span class="comment"># Y1 = forward/backward (-1 to 1)</span>
+    <span class="comment"># X1 = left/right turn (-1 to 1)</span>
+    forward = gamepad.<span class="function">get_value</span>(Gamepad.Y1)
+    turn = gamepad.<span class="function">get_value</span>(Gamepad.X1)
+    
+    <span class="comment"># Apply arcade drive</span>
+    <span class="comment"># forward: positive = forward, negative = backward</span>
+    <span class="comment"># turn: positive = turn left, negative = turn right</span>
+    drivetrain.<span class="function">arcade</span>(forward, turn)
+    
+    <span class="comment"># Small delay to prevent overwhelming the robot</span>
+    time.<span class="function">sleep</span>(<span class="number">0.05</span>)
+
+<span class="comment"># Stop the robot and gamepad when done</span>
+drivetrain.<span class="function">stop</span>()
+gamepad.<span class="function">stop</span>()
+<span class="function">print</span>(<span class="string">"Done!"</span>)
+</code></pre>
+    </div>
+
+    <h2>📚 More Resources</h2>
+    <div class="sample">
+        <p class="description">
+            <strong>XRP Documentation:</strong> <a href="https://experientialrobotics.org/" target="_blank" style="color: #00d4ff;">experientialrobotics.org</a><br>
+            <strong>Jahn Robotics:</strong> <a href="https://jahnrobotics.org/" target="_blank" style="color: #00d4ff;">jahnrobotics.org</a>
+        </p>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const pre = button.parentElement;
+            const code = pre.querySelector('code');
+            
+            // Get text content and clean up HTML tags
+            let text = code.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
