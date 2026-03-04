@@ -1752,7 +1752,7 @@ class ReplJS{
         if(this.DEBUG_CONSOLE_ON) console.log("%cTrying auto connect...");
         var ports = await navigator.serial.getPorts();
         if(Array.isArray(ports)){
-            for(var ip=0; ip<ports.length; ports++){
+            for(var ip=0; ip<ports.length; ip++){
                 if(this.checkPortMatching(ports[ip])) {
                     this.PORT = ports[ip];
                     if(this.DEBUG_CONSOLE_ON) console.log("%cAuto connected!", "color: lime");

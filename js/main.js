@@ -421,6 +421,11 @@ document.getElementById("IDGamepadTester").onclick = (event) =>{
     window.open("https://hardwaretester.com/gamepad", "_blank")
 }
 
+document.getElementById("IDManualFlash").onclick = (event) =>{
+    UIkit.dropdown(HELP_DROPDOWN).hide();
+    window.location.href = "flash.html";
+}
+
 disableMenuItems(); 
 
 document.getElementById("IDRunBTN").onclick = async (event) =>{

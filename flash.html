@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Flash Firmware - Jahn Robotics XRP</title>
+
+        <link rel="stylesheet" href="uikit-3.16.22/css/uikit.css?version=1.2.2" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="css/custom/custom-styling.css">
+        <link rel="stylesheet" href="css/custom/building-guide.css">
+        <link rel="stylesheet" href="css/custom/flash.css">
+    </head>
+
+    <body>
+        <div class="page_wrapper">
+            <header class="header uk-text-center uk-width-1-1">
+                <div class="header_button_space uk-height-1-1">
+                    <div class="header-logos-nav uk-height-1-1 uk-text-left uk-margin-medium-left">
+                        <a href="https://jahnrobotics.org" target="_blank" title="Jahn Robotics" class="jahn-logo-link">
+                            <img class="jahn_logo" src="images/jahn-robotics-logo.png" alt="Jahn Robotics Logo">
+                            <span class="jahn-logo-text">Jahn Robotics</span>
+                        </a>
+                        <nav class="guide-nav">
+                            <a href="index.html" class="nav-link">Code Editor</a>
+                            <a href="flash.html" class="nav-link active">Flash Firmware</a>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <main class="guide-content">
+                <div class="guide-container">
+                    <h1>Flash XRP Firmware</h1>
+                    <p class="intro">Use this page to manually flash firmware to your XRP when it's unresponsive or needs recovery.</p>
+
+                    <div class="flash-section">
+                        <h2>Step 1: Enter Bootloader Mode</h2>
+                        <p class="section-intro">Follow these steps to put your XRP into bootloader mode:</p>
+
+                        <div class="steps-list">
+                            <div class="step-simple">
+                                <div class="step-number">1</div>
+                                <div class="step-info">
+                                    <h3>Plug in USB</h3>
+                                    <p>Connect your XRP to your computer using a USB cable.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-simple">
+                                <div class="step-number">2</div>
+                                <div class="step-info">
+                                    <h3>Hold down BOOT</h3>
+                                    <p>Press and hold the BOOT button on your XRP.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-simple">
+                                <div class="step-number">3</div>
+                                <div class="step-info">
+                                    <h3>Hold down RESET</h3>
+                                    <p>While still holding BOOT, press and hold the RESET button.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-simple">
+                                <div class="step-number">4</div>
+                                <div class="step-info">
+                                    <h3>Release RESET</h3>
+                                    <p>Let go of the RESET button while keeping BOOT held down.</p>
+                                </div>
+                            </div>
+
+                            <div class="step-simple">
+                                <div class="step-number">5</div>
+                                <div class="step-info">
+                                    <h3>Release BOOT</h3>
+                                    <p>Let go of the BOOT button. Your XRP should now appear as a USB drive (RPI-RP2 or RP2350).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flash-section">
+                        <h2>Step 2: Flash Firmware</h2>
+                        <p class="section-intro">Click the button below and select the mounted RPI-RP2 or RP2350 drive.</p>
+
+                        <div class="flash-button-container">
+                            <button id="flashButton" class="flash-button">
+                                Select Drive and Flash Firmware
+                            </button>
+                            <p id="flashStatus" class="flash-status"></p>
+                        </div>
+                    </div>
+
+                    <div class="flash-section">
+                        <h2>Step 3: Return to Editor</h2>
+                        <p class="section-intro">After flashing completes, your XRP will automatically reboot. Click below to return to the code editor.</p>
+
+                        <div class="return-link-container">
+                            <a href="index.html" class="return-link">Go to Code Editor</a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="guide-footer">
+                <p>XRP Code Editor by <a href="https://jahnrobotics.org" target="_blank">Jahn Robotics</a></p>
+            </footer>
+        </div>
+
+        <script>
+            document.getElementById('flashButton').onclick = async function() {
+                const statusEl = document.getElementById('flashStatus');
+                const buttonEl = document.getElementById('flashButton');
+
+                try {
+                    statusEl.textContent = 'Select the RPI-RP2 or RP2350 drive...';
+                    statusEl.className = 'flash-status';
+
+                    let dirHandler = await window.showDirectoryPicker({mode: "readwrite"});
+                    let fileHandle = await dirHandler.getFileHandle("firmware.uf2", {create: true});
+                    let writable = await fileHandle.createWritable();
+
+                    statusEl.textContent = 'Downloading firmware...';
+                    buttonEl.disabled = true;
+
+                    let firmware = "micropython/firmware2350.uf2";
+                    let data = await (await fetch(firmware)).arrayBuffer();
+
+                    statusEl.textContent = 'Writing firmware...';
+                    await writable.write(data);
+
+                    try {
+                        await writable.close();
+                    } catch {
+                        console.log("Device rebooted before close - this is ok");
+                    }
+
+                    statusEl.textContent = 'Firmware flashed successfully! Your XRP is rebooting.';
+                    statusEl.className = 'flash-status success';
+                    buttonEl.disabled = false;
+
+                } catch(err) {
+                    console.log(err);
+                    if (err.name === 'AbortError') {
+                        statusEl.textContent = 'Cancelled.';
+                    } else {
+                        statusEl.textContent = 'Error: Could not access drive. Make sure the device is in bootloader mode.';
+                    }
+                    statusEl.className = 'flash-status error';
+                    buttonEl.disabled = false;
+                }
+            };
+        </script>
+    </body>
+</html>
