@@ -421,18 +421,11 @@ class EditorWrapper{
             this.FONT_SIZE = lastEditorFontSize;
         }
 
-        // Get live autocomplete state, affects all editors
-        this.AUTOCOMPLETE_STATE = localStorage.getItem("EditorAutocompleteState");
-        if(this.AUTOCOMPLETE_STATE == undefined || this.AUTOCOMPLETE_STATE === null){
-            this.AUTOCOMPLETE_STATE = true;  //if no state then ON by default.
-        }
-        this.setAutocompleteButtonText();
-
         // Set the options that were restored
         this.ACE_EDITOR.setOptions({
             fontSize: this.FONT_SIZE.toString() + "pt",
             enableBasicAutocompletion: true,
-            enableLiveAutocompletion: this.AUTOCOMPLETE_STATE,
+            enableLiveAutocompletion: true,
             enableSnippets: true
         });
 
@@ -465,40 +458,6 @@ class EditorWrapper{
         this.onOpen(this);
     }
 
-    setAutocompleteButtonText(){
-        if(this.AUTOCOMPLETE_STATE){
-            document.getElementById("IDViewAutoComplete").textContent = "Turn live autocomplete OFF";
-        }else{
-            document.getElementById("IDViewAutoComplete").textContent = "Turn live autocomplete ON";
-        }
-    }
-
-    setAutocompleteState(state){
-        this.ACE_EDITOR.setOptions({
-            enableLiveAutocompletion: state,
-            enableSnippets: state
-        });
-        this.AUTOCOMPLETE_STATE = state;
-        this.setAutocompleteButtonText();
-    }
-
-    toggleAutocompleteStateForAll(){
-        if(this.AUTOCOMPLETE_STATE){
-            this.AUTOCOMPLETE_STATE = false;
-        }else{
-            this.AUTOCOMPLETE_STATE = true;
-        }
-
-        localStorage.setItem("EditorAutocompleteState", this.AUTOCOMPLETE_STATE);
-
-        // Apply to all editors, even this one
-        //[TODO] This should proably only apply to this editor since that is the way fonts work
-        for (const [id, editor] of Object.entries(this.EDITORS)) {
-            if(!editor.isBlockly) {
-                editor.setAutocompleteState(this.AUTOCOMPLETE_STATE);
-            }
-        }
-    }
 
     setPath(path){
         this.EDITOR_PATH = path;

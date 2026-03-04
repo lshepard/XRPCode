@@ -391,12 +391,6 @@ document.getElementById("IDViewResetF").onclick = (event) =>{
     EDITORS[id].resetFontSize();
 }
 */
-document.getElementById("IDViewAutoComplete").onclick = (event) =>{
-    UIkit.dropdown(VIEW_DROPDOWN).hide();
-    let id = localStorage.getItem("activeTabId");
-    EDITORS[id].toggleAutocompleteStateForAll();
-}
-
 //Help Menu Support
 HELP_BUTTON.onclick = (event) =>{
     //get active file id
