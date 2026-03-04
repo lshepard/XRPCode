@@ -422,6 +422,11 @@ document.getElementById("IDAPI").onclick = (event) =>{
     window.open("https://open-stem.github.io/XRP_MicroPython/", "_blank")
 }
 
+document.getElementById("IDGamepadTester").onclick = (event) =>{
+    UIkit.dropdown(HELP_DROPDOWN).hide();
+    window.open("https://hardwaretester.com/gamepad", "_blank")
+}
+
 disableMenuItems(); 
 
 document.getElementById("IDRunBTN").onclick = async (event) =>{
