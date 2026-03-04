@@ -251,9 +251,11 @@ document.getElementById("IDStopBTN").onclick = async (event) =>{
 // This is to make the menus act more like true menus. When the menu dropdowns are active then moving to the next menu switches to that menu.
 var FILE_BUTTON = document.getElementById("IDFileBTN");
 var VIEW_BUTTON = document.getElementById("IDViewBTN");
+var TOOLS_BUTTON = document.getElementById("IDToolsBTN");
 var HELP_BUTTON = document.getElementById("IDHelpBTN");
 var FILE_DROPDOWN = document.getElementById("IDFile");
 var VIEW_DROPDOWN = document.getElementById("IDView");
+var TOOLS_DROPDOWN = document.getElementById("IDToolsDrop");
 var HELP_DROPDOWN = document.getElementById("IDHelpDrop");
 
 
@@ -268,6 +270,12 @@ FILE_BUTTON.addEventListener("mouseenter", () => {
 VIEW_BUTTON.addEventListener("mouseenter", () => {
     if(menus_down){
         UIkit.dropdown(VIEW_DROPDOWN).show();
+    }
+});
+
+TOOLS_BUTTON.addEventListener("mouseenter", () => {
+    if(menus_down){
+        UIkit.dropdown(TOOLS_DROPDOWN).show();
     }
 });
 
@@ -289,6 +297,13 @@ VIEW_DROPDOWN.addEventListener("show", () => {
 });
 
 VIEW_DROPDOWN.addEventListener("hide", () => {
+    menus_down = false;
+});
+TOOLS_DROPDOWN.addEventListener("show", () => {
+    menus_down = true;
+});
+
+TOOLS_DROPDOWN.addEventListener("hide", () => {
     menus_down = false;
 });
 HELP_DROPDOWN.addEventListener("show", () => {
@@ -396,6 +411,10 @@ HELP_BUTTON.onclick = (event) =>{
     //get active file id
     getActiveId();
 }
+TOOLS_DROPDOWN.addEventListener("mouseleave", () => {
+    UIkit.dropdown(TOOLS_DROPDOWN).hide();
+})
+
 HELP_DROPDOWN.addEventListener("mouseleave", () => {
     UIkit.dropdown(HELP_DROPDOWN).hide();
 })
@@ -416,13 +435,28 @@ document.getElementById("IDAPI").onclick = (event) =>{
     window.open("https://open-stem.github.io/XRP_MicroPython/", "_blank")
 }
 
-document.getElementById("IDGamepadTester").onclick = (event) =>{
+document.getElementById("IDExamples").onclick = (event) =>{
     UIkit.dropdown(HELP_DROPDOWN).hide();
+    menus_down = false;
+    window.location.href = "examples.html";
+}
+
+document.getElementById("IDGamepadTester").onclick = (event) =>{
+    UIkit.dropdown(TOOLS_DROPDOWN).hide();
     window.open("https://hardwaretester.com/gamepad", "_blank")
 }
 
+document.getElementById("IDReinstallLibrary").onclick = async (event) =>{
+    UIkit.dropdown(TOOLS_DROPDOWN).hide();
+    if(!REPL.CONNECTED){
+        window.alertMessage("No device connected. Please connect an XRP first.");
+        return;
+    }
+    await REPL.reinstallLibrary();
+}
+
 document.getElementById("IDManualFlash").onclick = (event) =>{
-    UIkit.dropdown(HELP_DROPDOWN).hide();
+    UIkit.dropdown(TOOLS_DROPDOWN).hide();
     window.location.href = "flash.html";
 }
 

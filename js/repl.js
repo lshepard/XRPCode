@@ -1549,6 +1549,61 @@ class ReplJS{
         await this.writeToDevice(this.CTRL_CMD_SOFTRESET);
     }
 
+    async reinstallLibrary(){
+        let answer = await window.confirmMessage("This will reinstall all XRP library files.<br>Click OK to continue.");
+        if (!answer) {
+            return;
+        }
+
+        UIkit.modal(document.getElementById("IDProgressBarParent")).show();
+        document.getElementById("IdProgress_TitleText").innerText = 'Reinstalling Library...';
+
+        let response = await fetch("lib/package.json" + "?version=" + window.latestLibraryVersion[2] + 1);
+        response = await response.text();
+        let jresp = JSON.parse(response);
+        var urls = jresp.urls;
+        window.setPercent(1, "Reinstalling XRPLib...");
+        let percent_per = Math.floor(99 / (urls.length + window.phewList.length + window.bleList.length + 1));
+        let cur_percent = 1 + percent_per;
+
+        await this.deleteFileOrDir("/lib/XRPLib");
+        for(let i=0; i<urls.length; i++){
+            window.setPercent(cur_percent, "Reinstalling XRPLib...");
+            let next = urls[i];
+            var parts = next[0];
+            parts = parts.replace("XRPLib", "lib/XRPLib");
+            await this.uploadFile(parts, await window.downloadFile(parts.replace("XRPExamples", "lib/XRPExamples") + "?version=" + window.latestLibraryVersion[2]));
+            cur_percent += percent_per;
+        }
+
+        await this.uploadFile("lib/XRPLib/version.py", "__version__ = '" + window.latestLibraryVersion[0] + "." + window.latestLibraryVersion[1] + "." + window.latestLibraryVersion[2] + "'\n" );
+        cur_percent += percent_per;
+
+        await this.deleteFileOrDir("/lib/ble");
+        for(let i=0; i<window.bleList.length; i++){
+            window.setPercent(cur_percent, "Reinstalling XRPLib...");
+            await this.uploadFile("lib/ble/" + window.bleList[i], await window.downloadFile("lib/ble/" + window.bleList[i] + "?version=" + window.latestLibraryVersion[2]));
+            cur_percent += percent_per;
+        }
+
+        await this.deleteFileOrDir("/lib/phew");
+        for(let i=0; i<window.phewList.length; i++){
+            window.setPercent(cur_percent, "Reinstalling XRPLib...");
+            await this.uploadFile("lib/phew/" + window.phewList[i], await window.downloadFile("lib/phew/" + window.phewList[i] + "?version=" + window.latestLibraryVersion[2]));
+            cur_percent += percent_per;
+        }
+
+        cur_percent = 100;
+        window.setPercent(cur_percent, "Reinstalling XRPLib...");
+        await this.uploadFile("/main.py", await window.downloadFile("lib/main.py" + "?version=" + window.latestLibraryVersion[2]));
+
+        window.resetPercentDelay();
+        await this.getOnBoardFSTree();
+        UIkit.modal(document.getElementById("IDProgressBarParent")).hide();
+        await window.alertMessage("The XRP must be restarted for changes to take affect. \n If XRP does not reconnect after 30 seconds refresh the browser and connect manually");
+        await this.writeToDevice(this.CTRL_CMD_SOFTRESET);
+    }
+
     async updateMicroPython() {
 
         UIkit.modal(document.getElementById("IDProgressBarParent")).show();

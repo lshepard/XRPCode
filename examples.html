@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Examples - Jahn Robotics XRP</title>
+
+        <link rel="stylesheet" href="uikit-3.16.22/css/uikit.css?version=1.2.2" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="css/custom/custom-styling.css">
+        <link rel="stylesheet" href="css/custom/building-guide.css">
+        <link rel="stylesheet" href="css/custom/examples.css">
+    </head>
+
+    <body>
+        <div class="page_wrapper">
+            <header class="header uk-text-center uk-width-1-1">
+                <div class="header_button_space uk-height-1-1">
+                    <div class="header-logos-nav uk-height-1-1 uk-text-left uk-margin-medium-left">
+                        <a href="https://jahnrobotics.org" target="_blank" title="Jahn Robotics" class="jahn-logo-link">
+                            <img class="jahn_logo" src="images/jahn-robotics-logo.png" alt="Jahn Robotics Logo">
+                            <span class="jahn-logo-text">Jahn Robotics</span>
+                        </a>
+                        <nav class="guide-nav">
+                            <a href="index.html" class="nav-link">Code Editor</a>
+                            <a href="examples.html" class="nav-link active">Examples</a>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <main class="guide-content">
+                <div class="guide-container">
+                    <h1>XRP Code Examples</h1>
+                    <p class="intro">Copy these examples into the Code Editor to get started with your XRP robot.</p>
+
+                    <div class="example-section">
+                        <h2>Joystick Control</h2>
+                        <p class="example-description">Control your XRP with a gamepad using arcade-style driving. Connect via Bluetooth, then use the left joystick to drive forward/backward and turn.</p>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-filename">joystick_control.py</span>
+                                <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <pre><code>from XRPLib.defaults import *
+from XRPLib.gamepad import *
+import time
+
+# Get the default gamepad instance
+gp = Gamepad.get_default_gamepad()
+print("Starting!")
+
+while True:
+    # Arcade drive: one joystick controls everything
+    throttle = gp.get_value(gp.Y1)  # Forward/backward on left stick
+    rotation = gp.get_value(gp.X1)  # Turn left/right on left stick
+
+    # Use arcade method for intuitive control
+    drivetrain.arcade(throttle, rotation)
+    time.sleep(0.2)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="back-link-container">
+                        <a href="index.html" class="return-link">Go to Code Editor</a>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="guide-footer">
+                <p>XRP Code Editor by <a href="https://jahnrobotics.org" target="_blank">Jahn Robotics</a></p>
+            </footer>
+        </div>
+
+        <script>
+            function copyCode(button) {
+                const codeBlock = button.closest('.code-block');
+                const code = codeBlock.querySelector('code').textContent;
+
+                navigator.clipboard.writeText(code).then(() => {
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                });
+            }
+        </script>
+    </body>
+</html>
